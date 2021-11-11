@@ -24,6 +24,11 @@ public class ClientController {
         return ResponseEntity.ok(clientService.findAll());
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Client> findById(@PathVariable Long id) {
+        return ResponseEntity.ok(clientService.findById(id));
+    }
+
     @PostMapping
     public ResponseEntity<Client> persist(@RequestBody Client client) {
 
