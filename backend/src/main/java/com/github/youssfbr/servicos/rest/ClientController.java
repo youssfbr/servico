@@ -1,12 +1,12 @@
 package com.github.youssfbr.servicos.rest;
 
 import com.github.youssfbr.servicos.dto.ClientDTO;
-import com.github.youssfbr.servicos.model.entities.Client;
 import com.github.youssfbr.servicos.services.IClientService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
@@ -31,7 +31,7 @@ public class ClientController {
     }
 
     @PostMapping
-    public ResponseEntity<ClientDTO> persist(@RequestBody ClientDTO dto) {
+    public ResponseEntity<ClientDTO> persist(@RequestBody @Valid ClientDTO dto) {
 
         dto = clientService.persist(dto);
 
@@ -42,7 +42,7 @@ public class ClientController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ClientDTO> update(@PathVariable Long id, @RequestBody ClientDTO dto) {
+    public ResponseEntity<ClientDTO> update(@PathVariable Long id, @RequestBody @Valid ClientDTO dto) {
 
         dto = clientService.update(id, dto);
 
