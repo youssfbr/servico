@@ -1,5 +1,6 @@
 package com.github.youssfbr.servicos.rest;
 
+import com.github.youssfbr.servicos.dto.ClientDTO;
 import com.github.youssfbr.servicos.model.entities.Client;
 import com.github.youssfbr.servicos.services.IClientService;
 import org.springframework.http.ResponseEntity;
@@ -20,32 +21,32 @@ public class ClientController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Client>> findAll() {
+    public ResponseEntity<List<ClientDTO>> findAll() {
         return ResponseEntity.ok(clientService.findAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Client> findById(@PathVariable Long id) {
+    public ResponseEntity<ClientDTO> findById(@PathVariable Long id) {
         return ResponseEntity.ok(clientService.findById(id));
     }
 
     @PostMapping
-    public ResponseEntity<Client> persist(@RequestBody Client client) {
+    public ResponseEntity<ClientDTO> persist(@RequestBody ClientDTO dto) {
 
-        client = clientService.persist(client);
+        dto = clientService.persist(dto);
 
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-                .buildAndExpand(client.getId()).toUri();
+                .buildAndExpand(dto.getId()).toUri();
 
-        return ResponseEntity.created(uri).body(client);
+        return ResponseEntity.created(uri).body(dto);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Client> update(@PathVariable Long id, @RequestBody Client updatedClient) {
+    public ResponseEntity<ClientDTO> update(@PathVariable Long id, @RequestBody ClientDTO dto) {
 
-        updatedClient = clientService.update(id, updatedClient);
+        dto = clientService.update(id, dto);
 
-        return ResponseEntity.ok(updatedClient);
+        return ResponseEntity.ok(dto);
     }
 
     @DeleteMapping("/{id}")

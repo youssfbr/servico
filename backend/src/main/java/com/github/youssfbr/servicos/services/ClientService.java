@@ -1,5 +1,6 @@
 package com.github.youssfbr.servicos.services;
 
+import com.github.youssfbr.servicos.dto.ClientDTO;
 import com.github.youssfbr.servicos.model.entities.Client;
 import com.github.youssfbr.servicos.model.repositories.IClientRepository;
 import com.github.youssfbr.servicos.services.exceptions.DatabaseException;
@@ -11,6 +12,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ClientService implements IClientService {
@@ -24,33 +28,46 @@ public class ClientService implements IClientService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Client> findAll() {
-        return clientRepository.findAll();
+    public List<ClientDTO> findAll() {
+        List<Client> list = clientRepository.findAll();
+
+        return list.stream().map(ClientDTO::new).collect(Collectors.toList());
     }
 
     @Override
     @Transactional(readOnly = true)
-    public Client findById(final Long id) {
-        return clientRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(MESSAGE_ID + id, HttpStatus.NOT_FOUND));
-    }
-
-    @Override
-    @Transactional
-    public Client persist(final Client client) {
-        return clientRepository.save(client);
-    }
-
-    @Override
-    @Transactional
-    public Client update(final Long id, final Client updatedClient) {
+    public ClientDTO findById(final Long id) {
         return clientRepository
                 .findById(id)
+                .map(ClientDTO::new)
+                .orElseThrow(() -> new ResourceNotFoundException(MESSAGE_ID + id, HttpStatus.NOT_FOUND));
+    }
+
+    @Override
+    @Transactional
+    public ClientDTO persist(final ClientDTO dto) {
+
+        Client entity = new Client();
+        copyDtoToEntity(dto, entity);
+
+        entity = clientRepository.save(entity);
+
+        return new ClientDTO(entity);
+    }
+
+    @Override
+    @Transactional
+    public ClientDTO update(final Long id, final ClientDTO dto) {
+        Client entity = clientRepository
+                .findById(id)
                 .map( client -> {
-                    client.setName(updatedClient.getName());
-                    client.setCpf(updatedClient.getCpf());
+                    client.setName(dto.getName());
+                    client.setCpf(dto.getCpf());
                     return clientRepository.save(client);
                 })
                 .orElseThrow(() -> new ResourceNotFoundException(MESSAGE_ID + id, HttpStatus.NOT_FOUND));
+
+        return new ClientDTO(entity);
     }
 
     @Override
@@ -68,5 +85,18 @@ public class ClientService implements IClientService {
         catch (Exception e) {
             throw new ResourceNotFoundException("Erro interno. Contate o suporte", HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    private boolean validateDto(final Object object) {
+        return Objects.nonNull(object) && !object.toString().isEmpty();
+    }
+
+    private Client copyDtoToEntity(final ClientDTO dto, final Client entity) {
+
+        entity.setName(validateDto(dto.getName()) ? dto.getName() : entity.getName());
+        entity.setCpf(validateDto(dto.getCpf()) ? dto.getCpf() : entity.getCpf());
+        entity.setRegisterDate(validateDto(dto.getRegisterDate()) ? dto.getRegisterDate() : entity.getRegisterDate());
+
+        return entity;
     }
 }
