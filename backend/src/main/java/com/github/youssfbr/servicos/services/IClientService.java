@@ -9,6 +9,7 @@ public interface IClientService {
     List<Client> findAll();
     Client findById(Long id);
     Client persist(final Client entity);
+    Client update(Long id, Client updatedClient);
     void delete(Long id);
 
 }

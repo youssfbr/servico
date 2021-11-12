@@ -36,8 +36,21 @@ public class ClientService implements IClientService {
 
     @Override
     @Transactional
-    public Client persist(Client client) {
+    public Client persist(final Client client) {
         return clientRepository.save(client);
+    }
+
+    @Override
+    @Transactional
+    public Client update(final Long id, final Client updatedClient) {
+        return clientRepository
+                .findById(id)
+                .map( client -> {
+                    client.setName(updatedClient.getName());
+                    client.setCpf(updatedClient.getCpf());
+                    return clientRepository.save(client);
+                })
+                .orElseThrow(() -> new ResourceNotFoundException(MESSAGE_ID + id, HttpStatus.NOT_FOUND));
     }
 
     @Override
@@ -49,7 +62,7 @@ public class ClientService implements IClientService {
             throw new ResourceNotFoundException(MESSAGE_ID + id, HttpStatus.NOT_FOUND);
         }
         catch (DataIntegrityViolationException e) {
-            throw new DatabaseException("Recurso não deletado. Violação de integidade",
+            throw new DatabaseException("Recurso não deletado. Violação de integridade",
                     HttpStatus.BAD_REQUEST);
         }
         catch (Exception e) {
