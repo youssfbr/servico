@@ -9,20 +9,31 @@ import { ClientsService } from '../../shared/services/clients.service';
   styleUrls: ['./cliente-form.component.css'],
 })
 export class ClienteFormComponent implements OnInit {
-
   client: Client;
+  success = false;
+  errors: any[] = [];
 
-  constructor( private service: ClientsService ) {
+  constructor(private service: ClientsService) {
     this.client = new Client();
   }
 
   ngOnInit(): void {}
 
   onSubmit(): void {
-    this.service
-      .persist(this.client)
-      .subscribe( response => {
-        console.log(response);
-      })
+    this.service.persist(this.client).subscribe(
+      (response) => {
+        this.success = true;
+        this.errors = [];
+        this.client = response;
+      },
+      (errorResponse) => {
+        this.successFalse();
+        this.errors = errorResponse.error.fields;
+      }
+    );
+  }
+
+  successFalse(): void {
+    this.success = false;
   }
 }
