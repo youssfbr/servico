@@ -3,40 +3,40 @@
   <li class="breadcrumb-item active">Cadastro</li>
 </ol>
 <div class="container">
-  <form>
+  <form #clientForm="ngForm" (ngSubmit)="onSubmit()">
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">
           <label>Id</label>
-          <input type="text" class="form-control" disabled />
+          <input type="text" class="form-control"[ngModel]="client.id" name="id" disabled />
         </div>
       </div>
       <div class="col-md-6">
         <div class="form-group">
           <label>Data Cadastro</label>
-          <input type="text" class="form-control" disabled />
+          <input type="text" class="form-control" [ngModel]="client.registerDate" name="registerDate" disabled />
         </div>
       </div>
     </div>
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">
-          <label for="">Nome *</label>
-          <input type="text" class="form-control"  />
+          <label for="name">Nome *</label>
+          <input type="text" class="form-control" [(ngModel)]="client.name" name="name" id="name" />
         </div>
       </div>
       <div class="col-md-6">
         <div class="form-group">
-          <label for="">CPF *</label>
-          <input type="text" class="form-control"  />
+          <label for="cpf">CPF *</label>
+          <input type="text" class="form-control" [(ngModel)]="client.cpf" name="cpf" id="cpf"  />
         </div>
       </div>
     </div>
 
     <div class="row mt-2 mb-4">
       <div class="col-md-2">
-        <button type="submit" class="btn btn-success ">
-          <i class="fa fa-save"></i>Salvar
+        <button type="submit" class="btn btn-success">
+          <i class="fa fa-save mr-2"></i>Salvar
         </button>
       </div>
     </div>
