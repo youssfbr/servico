@@ -14,6 +14,7 @@ export class ClienteFormComponent implements OnInit {
   success = false;
   errors: any[] = [];
   id!: number;
+  errorMessage?: string;
 
   constructor(private service: ClientsService, private route: ActivatedRoute) {
     this.client = new Client();
@@ -53,6 +54,7 @@ export class ClienteFormComponent implements OnInit {
       (errorResponse) => {
         this.successFalse();
         this.errors = errorResponse.error.fields;
+        this.errorMessage = 'Ocorreu um erro ao salvar/atualizar o cliente!'
       }
     );
   }

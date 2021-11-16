@@ -4,6 +4,23 @@
 </ol>
 
 <div class="row">
+  <div class="col-md-12">
+    <div class="alert alert-success" role="alert" *ngIf="successMessage">
+      <strong>Cliente</strong> deletado com sucesso.
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close" >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="alert alert-danger" role="alert" *ngIf="errorMessage">
+      <strong>{{ errorMessage }}</strong>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close" >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="row">
   <div class="col-md-2 mb-4" routerLink="/cliente-form">
     <button class="btn btn-warning"><i class="fa fa-plus"></i> Novo</button>
   </div>
@@ -33,15 +50,34 @@
               <button class="btn btn-primary mr-2" routerLink="/cliente-form/{{ client.id }}">
                 <i class="fa fa-edit"></i>
               </button>
-              <button class="btn btn-danger" routerLink="/cliente-form/{{ client.id }}">
-                <i class="fa fa-erase"></i>
+              <button class="btn btn-danger" (click)="BeforeDelete(client)"
+                      data-toggle="modal" data-target="#modalDelecao">
+                <i class="fa fa-trash"></i>
               </button>
             </td>
           </tr>
         </tbody>
 
-
       </table>
+    </div>
+  </div>
+
+  <div id="modalDelecao" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4>Confirmação</h4>
+        </div>
+
+        <div class="modal-body" *ngIf="clientSelect">
+          Confirma a deleção do cliente: <strong>{{ clientSelect.name }}</strong> ?
+        </div>
+
+        <div class="modal-footer">
+          <button class="btn btn-success" (click)="DeleteClient()" data-dismiss="modal">Confirmar</button>
+          <button class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+        </div>
+      </div>
     </div>
   </div>
 

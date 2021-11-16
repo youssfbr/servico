@@ -26,4 +26,9 @@ export class ClientsService {
       ? this.http.put<Client>(`${this.url}/${client.id}`, client)
       : this.http.post<Client>(this.url, client);
   }
+
+  delete(client: Client): Observable<any> {
+    return this.http.delete<any>(`${this.url}/${client.id}`);
+  }
+  
 }
