@@ -1,6 +1,6 @@
 import { Client } from '../../shared/types/client';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Route } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
 
 import { ClientsService } from '../../shared/services/clients.service';
 
@@ -20,16 +20,25 @@ export class ClienteFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (
-      this.route.snapshot &&
-      this.route.snapshot.params &&
-      this.route.snapshot.params.id
-    ) {
-      this.id = this.route.snapshot.params.id;
+    /*  let params: Observable<Params> = this.route.params;
+    params.subscribe( urlParams => {
+      this.id = urlParams['id'];
 
+      this.service.getClientById(this.id).subscribe(
+      if (this.id) {
       this.service.getClientById(this.id).subscribe(
         (response) => (this.client = response),
         () => (this.client = new Client())
+      );
+    }
+    });*/
+
+    this.id = this.route.snapshot.params.id;
+
+    if (this.id) {
+      this.service.getClientById(this.id).subscribe(
+        response => this.client = response,
+        () => this.client = new Client()
       );
     }
   }
