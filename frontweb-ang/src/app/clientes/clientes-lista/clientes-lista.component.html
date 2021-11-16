@@ -1,0 +1,49 @@
+<h1 class="mt-4">Clientes</h1>
+<ol class="breadcrumb mb-4">
+  <li class="breadcrumb-item active">Consulta</li>
+</ol>
+
+<div class="row">
+  <div class="col-md-2 mb-4" routerLink="/cliente-form">
+    <button class="btn btn-warning"><i class="fa fa-plus"></i> Novo</button>
+  </div>
+</div>
+
+<div class="">
+
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table table-striped table-hover ">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Nome</th>
+            <th>CPF</th>
+            <th>Data cadastro</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr  *ngFor="let client of clients">
+            <td>{{ client.id }}</td>
+            <td>{{ client.name }}</td>
+            <td>{{ client.cpf }}</td>
+            <td>{{ client.registerDate }}</td>
+            <td>
+              <button class="btn btn-primary mr-2" routerLink="/cliente-form/{{ client.id }}">
+                <i class="fa fa-edit"></i>
+              </button>
+              <button class="btn btn-danger" routerLink="/cliente-form/{{ client.id }}">
+                <i class="fa fa-erase"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+
+
+      </table>
+    </div>
+  </div>
+
+</div>
+
