@@ -2,6 +2,7 @@ package com.github.youssfbr.servicos.rest;
 
 import com.github.youssfbr.servicos.dto.ServicoDTO;
 import com.github.youssfbr.servicos.services.IServicoService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -12,17 +13,19 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/servicos")
+@RequiredArgsConstructor
 public class ServicoController {
 
     private final IServicoService servicoService;
 
-    public ServicoController(final IServicoService servicoService) {
-        this.servicoService = servicoService;
-    }
-
     @GetMapping
-    public ResponseEntity<List<ServicoDTO>> findAll() {
-        return ResponseEntity.ok(servicoService.findAll());
+    public ResponseEntity<List<ServicoDTO>> findAll(
+            @RequestParam(value = "name", required = false, defaultValue = "") String name,
+            @RequestParam(value = "month", required = false) Integer month)
+    {
+        if (month == null) return ResponseEntity.ok(servicoService.findAll());
+
+        return ResponseEntity.ok(servicoService.find(name, month));
     }
 
     @GetMapping("/{id}")

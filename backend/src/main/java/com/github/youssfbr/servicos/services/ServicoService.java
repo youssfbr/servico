@@ -14,7 +14,6 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -37,6 +36,14 @@ public class ServicoService implements IServicoService {
     @Transactional(readOnly = true)
     public List<ServicoDTO> findAll() {
         List<Servico> list = servicoRepository.findAll();
+
+        return list.stream().map(ServicoDTO::new).collect(Collectors.toList());
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<ServicoDTO> find(String name, Integer month) {
+        List<Servico> list = servicoRepository.findByNameClientAndMounth("%" + name + "%", month);
 
         return list.stream().map(ServicoDTO::new).collect(Collectors.toList());
     }
