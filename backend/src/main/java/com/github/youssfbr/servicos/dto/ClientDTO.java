@@ -7,7 +7,9 @@ import org.hibernate.validator.constraints.br.CPF;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 @Getter@Setter
 @AllArgsConstructor
@@ -24,12 +26,21 @@ public class ClientDTO {
     @CPF
     @Size(max = 11)
     private String cpf;
-    private LocalDate registerDate;
+
+    private String registerDate;
 
     public ClientDTO(Client entity) {
         id = entity.getId();
         name = entity.getName();
         cpf = entity.getCpf();
-        registerDate = entity.getRegisterDate();
+        registerDate = convert(entity.getRegisterDate());
     }
+
+    private static String convert(LocalDate dateIn) {
+
+        DateTimeFormatter formatters = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        return dateIn.format(formatters);
+    }
+
 }

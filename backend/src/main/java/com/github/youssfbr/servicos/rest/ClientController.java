@@ -2,6 +2,7 @@ package com.github.youssfbr.servicos.rest;
 
 import com.github.youssfbr.servicos.dto.ClientDTO;
 import com.github.youssfbr.servicos.services.IClientService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -12,13 +13,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/clients")
+@RequiredArgsConstructor
 public class ClientController {
 
     private final IClientService clientService;
-
-    public ClientController(final IClientService clientService) {
-        this.clientService = clientService;
-    }
 
     @GetMapping
     public ResponseEntity<List<ClientDTO>> findAll() {

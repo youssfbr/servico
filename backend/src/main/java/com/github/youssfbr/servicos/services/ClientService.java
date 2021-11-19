@@ -59,10 +59,11 @@ public class ClientService implements IClientService {
     public ClientDTO update(final Long id, final ClientDTO dto) {
         Client entity = clientRepository
                 .findById(id)
-                .map( client -> {
-                    client.setName(dto.getName());
-                    client.setCpf(dto.getCpf());
-                    return clientRepository.save(client);
+                .map( entityUpdated -> {
+
+                    entityUpdated = copyDtoToEntity(dto, entityUpdated);
+
+                    return clientRepository.save(entityUpdated);
                 })
                 .orElseThrow(() -> new ResourceNotFoundException(MESSAGE_ID + id, HttpStatus.NOT_FOUND));
 
@@ -94,7 +95,6 @@ public class ClientService implements IClientService {
 
         entity.setName(validateDto(dto.getName()) ? dto.getName() : entity.getName());
         entity.setCpf(validateDto(dto.getCpf()) ? dto.getCpf() : entity.getCpf());
-        entity.setRegisterDate(validateDto(dto.getRegisterDate()) ? dto.getRegisterDate() : entity.getRegisterDate());
 
         return entity;
     }
