@@ -17,7 +17,7 @@
         <div class="alert alert-danger" role="alert" *ngFor="let error of errors">
           O campo <strong>{{ error.fieldError | uppercase }}</strong>  {{ error.message | lowercase}}
         </div>
-        <div class="alert alert-danger" role="alert" *ngIf="errorMessage">
+        <div class="alert alert-danger" role="alert" *ngIf="!errors && errorMessage">
           <strong>{{ errorMessage }}</strong>
           <button type="button" class="close" data-dismiss="alert" aria-label="Close" >
             <span aria-hidden="true">&times;</span>
