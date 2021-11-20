@@ -14,6 +14,9 @@ import { ServicoPrestadoService } from '../../shared/services/servico-prestado.s
 export class ServicoPrestadoFormComponent implements OnInit {
   clients: Client[] = [];
   servico: ServicoPrestado;
+  success = false;
+  errors: any[] = [];
+  errorMessage?: string;
 
   constructor(
     private clienteService: ClientsService,
@@ -30,9 +33,34 @@ export class ServicoPrestadoFormComponent implements OnInit {
   }
 
   onSubmit(): void {
+    this.servicoPrestadoService
+      .persist(this.servico)
+      .subscribe(
+        response => {
+          this.success = true;
+          this.errors = [];
+          this.servico = new ServicoPrestado();
+        //  this.servico = response;
+        },
+        errorResponse => {
+          this.successFalse();
+          this.errors = errorResponse.error.fields;
+          this.errorMessage = 'Ocorreu um erro ao salvar/atualizar o serviço prestado!'
+       }
+    );
+  }
+
+  onSubmit1(): void {
     this.servicoPrestadoService.persist(this.servico).subscribe(
       (response) => console.log(response),
       (error) => console.error(error)
     );
   }
+
+
+
+  successFalse(): void {
+    this.success = false;
+  }
+
 }
