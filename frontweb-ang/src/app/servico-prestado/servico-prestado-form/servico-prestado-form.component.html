@@ -9,14 +9,55 @@
     <div class="row">
       <div class="col-md-12">
         <div class="form-group">
-          <label for="">Cliente: </label>
-          <select name="" id="" class="form-control">
+          <label for="clientId">Cliente: </label>
+          <select name="clientId" id="clientId" class="form-control"
+            [ngModelOptions]="{standalone: true}"
+            [(ngModel)]="servico.clientId">
             <option value="">Selecione ...</option>
-            <option *ngFor="let client of clients" [ngValue]="client.id">
+            <option *ngFor="let client of clients"
+                    [ngValue]="client.id">
               {{ client.name }}
             </option>
           </select>
         </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group">
+          <label for="description">Descrição</label>
+          <input class="form-control"
+                  [(ngModel)]="servico.description" type="text"
+                  name="description" id="description" />
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="date">Data</label>
+          <input class="form-control"
+                  [(ngModel)]="servico.date" type="text"
+                  name="date" id="date" placeholder="dd/mm/yyyy" />
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="price">Valor do serviço</label>
+          <input class="form-control"
+                  [(ngModel)]="servico.price" type="text"
+                  name="price" id="price" />
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-4 mt-2">
+      <div class="col-md-3">
+        <button class="btn btn-primary" type="submit">
+          <i class="fa fa-save mr-1"></i>
+          Salvar</button>
       </div>
     </div>
 

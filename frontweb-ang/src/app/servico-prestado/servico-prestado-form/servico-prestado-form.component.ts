@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Client } from './../../shared/types/client';
+import { ServicoPrestado } from 'src/app/shared/types/servico-prestado';
 
 import { ClientsService } from '../../shared/services/clients.service';
 
@@ -10,9 +11,14 @@ import { ClientsService } from '../../shared/services/clients.service';
   styleUrls: ['./servico-prestado-form.component.css'],
 })
 export class ServicoPrestadoFormComponent implements OnInit {
-  clients: Client[] = [];
 
-  constructor(private clienteService: ClientsService) {}
+  clients: Client[] = [];
+  servico: ServicoPrestado;
+
+  constructor(private clienteService: ClientsService)
+  {
+    this.servico = new ServicoPrestado();
+  }
 
   ngOnInit(): void {
     this.clienteService.getClients().subscribe(
@@ -22,7 +28,7 @@ export class ServicoPrestadoFormComponent implements OnInit {
   }
 
   onSubmit(): void {
-    console.log('submit');
+    console.log(this.servico);
   }
 
 }
