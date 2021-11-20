@@ -4,6 +4,7 @@ import { Client } from './../../shared/types/client';
 import { ServicoPrestado } from 'src/app/shared/types/servico-prestado';
 
 import { ClientsService } from '../../shared/services/clients.service';
+import { ServicoPrestadoService } from '../../shared/services/servico-prestado.service';
 
 @Component({
   selector: 'app-servico-prestado-form',
@@ -11,24 +12,27 @@ import { ClientsService } from '../../shared/services/clients.service';
   styleUrls: ['./servico-prestado-form.component.css'],
 })
 export class ServicoPrestadoFormComponent implements OnInit {
-
   clients: Client[] = [];
   servico: ServicoPrestado;
 
-  constructor(private clienteService: ClientsService)
-  {
+  constructor(
+    private clienteService: ClientsService,
+    private servicoPrestadoService: ServicoPrestadoService
+  ) {
     this.servico = new ServicoPrestado();
   }
 
   ngOnInit(): void {
     this.clienteService.getClients().subscribe(
-      response => this.clients = response,
-      error => console.error(error)
+      (response) => (this.clients = response),
+      (error) => console.error(error)
     );
   }
 
   onSubmit(): void {
-    console.log(this.servico);
+    this.servicoPrestadoService.persist(this.servico).subscribe(
+      (response) => console.log(response),
+      (error) => console.error(error)
+    );
   }
-
 }
