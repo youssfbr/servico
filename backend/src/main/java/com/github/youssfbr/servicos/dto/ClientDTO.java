@@ -5,7 +5,6 @@ import lombok.*;
 import org.hibernate.validator.constraints.br.CPF;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import java.time.LocalDate;
@@ -18,12 +17,12 @@ public class ClientDTO {
 
     private Long id;
 
-    @NotBlank
+    @NotBlank(message = "{name.required}")
     @Size(max = 60)
     private String name;
 
-    @NotNull
-    @CPF
+    @NotBlank(message = "{cpf.required}")
+    @CPF(message = "{cpf.invalid}")
     @Size(max = 11)
     private String cpf;
 

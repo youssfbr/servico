@@ -21,9 +21,10 @@ public class StandardError implements Serializable {
     private List<Field> fields;
 
     @AllArgsConstructor
-    @Getter@Setter
+    @Getter
     public static  class Field {
         private String fieldError;
         private String message;
     }
+
 }

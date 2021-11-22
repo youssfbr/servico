@@ -15,7 +15,7 @@
           </button>
         </div>
         <div class="alert alert-danger" role="alert" *ngFor="let error of errors">
-          O campo <strong>{{ error.fieldError | uppercase }}</strong>  {{ error.message | lowercase}}
+          O campo <strong>{{ error.message }}</strong>
         </div>
         <div class="alert alert-danger" role="alert" *ngIf="!errors && errorMessage">
           <strong>{{ errorMessage }}</strong>

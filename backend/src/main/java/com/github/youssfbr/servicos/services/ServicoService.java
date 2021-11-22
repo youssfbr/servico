@@ -110,7 +110,7 @@ public class ServicoService implements IServicoService {
 
         LocalDate data = LocalDate.parse(dto.getDate(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 
-        Long clienteId = dto.getClienteId();
+        Long clienteId = dto.getClientId();
         Client client = clienteRepository
                         .findById(clienteId)
                         .orElseThrow(() -> new ResourceNotFoundException("Cliente inexistente", HttpStatus.NOT_FOUND));

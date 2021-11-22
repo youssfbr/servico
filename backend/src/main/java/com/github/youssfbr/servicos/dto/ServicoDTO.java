@@ -4,6 +4,9 @@ import com.github.youssfbr.servicos.model.entities.Client;
 import com.github.youssfbr.servicos.model.entities.Servico;
 import lombok.*;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -13,18 +16,24 @@ import java.time.format.DateTimeFormatter;
 public class ServicoDTO {
 
     private String id;
+
+    @NotBlank(message = "{description.required}")
     private String description;
+
+    @NotBlank(message = "{price.required}")
     private String price;
+
+    @NotBlank(message = "{date.required}")
     private String date;
 
-    private Long clienteId;
+    @NotNull(message = "{cliente.required}")
+    private Long clientId;
     private Client client;
-
 
     public ServicoDTO(Servico entity) {
         id = entity.getId().toString();
 
-        clienteId = entity.getClient().getId();
+        clientId = entity.getClient().getId();
         client = entity.getClient();
 
         description = entity.getDescription();
