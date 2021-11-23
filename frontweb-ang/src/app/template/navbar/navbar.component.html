@@ -1,6 +1,12 @@
-<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-  <a class="navbar-brand" href="#">Meus Clientes</a>
-  <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#">
+<nav class="sb-topnav navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+  <a class="navbar-brand" [routerLink]="['/home']">Meus Clientes</a>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#sidenavAccordion">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#sidenavAccordion">
       <i class="fas fa-bars"></i>
   </button>
+
 </nav>

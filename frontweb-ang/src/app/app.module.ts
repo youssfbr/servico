@@ -13,10 +13,11 @@ import { ServicoPrestadoModule } from './servico-prestado/servico-prestado.modul
 import { ClientsService } from './shared/services/clients.service';
 import { ServicoPrestadoService } from './shared/services/servico-prestado.service';
 
+
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
@@ -24,7 +25,7 @@ import { ServicoPrestadoService } from './shared/services/servico-prestado.servi
     AppRoutingModule,
     TemplateModule,
     ClientesModule,
-    ServicoPrestadoModule
+    ServicoPrestadoModule,
   ],
   providers: [
     ClientsService,

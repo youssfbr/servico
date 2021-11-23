@@ -1,0 +1,84 @@
+<h1 class="mt-4">Clientes</h1>
+<ol class="breadcrumb mb-4">
+  <li class="breadcrumb-item active">{{ client.id? 'Atualizar' : 'Cadastro'}}</li>
+</ol>
+
+<div class="container">
+  <h4>Demo Cadastro</h4>
+  <hr />
+  <form [formGroup]="cadastroForm" (ngSubmit)="onSubmit()">
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="alert alert-success" role="alert" *ngIf="success">
+          <strong>Cliente</strong> salvo/atualizado com sucesso.
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="successFalse()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="alert alert-danger" role="alert" *ngFor="let error of errors">
+          O campo <strong>{{ error.message }}</strong>
+        </div>
+        <div class="alert alert-danger" role="alert" *ngIf="!errors && errorMessage">
+          <strong>{{ errorMessage }}</strong>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close" >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="row text-secondary" *ngIf="client.id">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Id</label>
+          <input type="text" class="form-control" formControlName="id" />
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Data Cadastro</label>
+          <input type="text" class="form-control" formControlName="registerDate"  />
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="control-label" for="name">Nome *</label>
+            <input type="text" class="form-control" formControlName="name" id="name" placeholder="Nome (requerido)" maxlength="61"
+            [ngClass]="{ 'is-invalid': displayMessage.name }" />
+            <span class="text-danger" *ngIf="displayMessage.name">
+              <p [innerHTML]="displayMessage.name"></p>
+            </span>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="form-label" for="cpf" >CPF *</label>
+          <input type="text" class="form-control" formControlName="cpf" id="cpf" cpf [textMask]="{mask: MASKS.cpf.textMask}"
+          [ngClass]="{ 'is-invalid': displayMessage.cpf }" />
+          <span class="text-danger" *ngIf="displayMessage.cpf">
+            <p [innerHTML]="displayMessage.cpf"></p>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-2 mb-4">
+      <div class="col-md-3">
+        <button type="submit" class="btn btn-success mr-2" id="Registrar" *ngIf="!client.id" [disabled]="!cadastroForm.valid">
+          <i class="fa fa-save mr-2"></i>Salvar
+        </button>
+        <button type="submit" class="btn btn-primary mr-2" id="Atualizar" *ngIf="client.id" [disabled]="!cadastroForm.valid">
+          <i class="fa fa-sync-alt mr-2"></i>Atualizar
+        </button>
+
+        <button type="button" class="btn btn-danger" [routerLink]="['/cliente-list']">
+          <i class="fa fa-arrow-alt-circle-left mr-2"></i>Voltar
+        </button>
+      </div>
+    </div>
+
+  </form>
+</div>
