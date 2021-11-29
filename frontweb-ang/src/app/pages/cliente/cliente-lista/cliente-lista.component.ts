@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Client } from 'src/app/shared/types/client';
 
-import { ClientsService } from '../../shared/services/clients.service';
+import { ClientsService } from '../../../shared/services/clients.service';
 
 @Component({
   selector: 'app-clientes-lista',
-  templateUrl: './clientes-lista.component.html',
-  styleUrls: ['./clientes-lista.component.css'],
+  templateUrl: './cliente-lista.component.html'
 })
-export class ClientesListaComponent implements OnInit {
+export class ClienteListaComponent implements OnInit {
   clients: Client[] = [];
   clientSelect: Client;
   successMessage?: string;

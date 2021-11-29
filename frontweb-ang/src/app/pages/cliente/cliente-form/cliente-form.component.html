@@ -4,8 +4,7 @@
 </ol>
 
 <div class="container">
-  <h4>Demo Cadastro</h4>
-  <hr />
+
   <form [formGroup]="cadastroForm" (ngSubmit)="onSubmit()">
 
     <div class="row">
@@ -44,24 +43,23 @@
     </div>
 
     <div class="row">
+
       <div class="col-md-6">
         <div class="form-group">
-          <label class="control-label" for="name">Nome *</label>
-            <input type="text" class="form-control" formControlName="name" id="name" placeholder="Nome (requerido)" maxlength="61"
-            [ngClass]="{ 'is-invalid': displayMessage.name }" />
-            <span class="text-danger" *ngIf="displayMessage.name">
-              <p [innerHTML]="displayMessage.name"></p>
-            </span>
+          <label for="name" class="form-label">Nome *</label>
+          <input type="text" class="form-control is-invalid" formControlName="name" id="name" maxlength="61"
+          [ngClass]="{ 'is-invalid': displayMessage.name }"
+          />
+          <div id="nameFeedback" class="invalid-feedback">{{ displayMessage.name }}</div>
         </div>
       </div>
       <div class="col-md-6">
         <div class="form-group">
           <label class="form-label" for="cpf" >CPF *</label>
           <input type="text" class="form-control" formControlName="cpf" id="cpf" cpf [textMask]="{mask: MASKS.cpf.textMask}"
-          [ngClass]="{ 'is-invalid': displayMessage.cpf }" />
-          <span class="text-danger" *ngIf="displayMessage.cpf">
-            <p [innerHTML]="displayMessage.cpf"></p>
-          </span>
+          [ngClass]="{ 'is-invalid': displayMessage.cpf }"
+          />
+          <div class="invalid-feedback" >{{ displayMessage.cpf }}</div>
         </div>
       </div>
     </div>

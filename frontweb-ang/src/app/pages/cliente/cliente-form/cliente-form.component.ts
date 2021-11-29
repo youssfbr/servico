@@ -1,37 +1,52 @@
 import { Component, OnInit, AfterViewInit, ViewChildren, ElementRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControlName } from '@angular/forms';
 import { fromEvent, merge, Observable } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 
 import { MASKS, NgBrazilValidators } from 'ng-brazil';
-import { GenericValidator } from '../../shared/utils/generic-form-validation';
+import { GenericValidator, DisplayMessage, ValidationMessages } from '../../../shared/utils/generic-form-validation';
 
 import { Client } from 'src/app/shared/types/client';
 import { ClientsService } from 'src/app/shared/services/clients.service';
 
+
 @Component({
   selector: 'app-clientes-form-reactive',
-  templateUrl: './clientes-form-reactive.component.html',
-  styleUrls: ['./clientes-form-reactive.component.css']
+  templateUrl: './cliente-form.component.html'
 })
-export class ClientesFormReactiveComponent implements OnInit, AfterViewInit {
+export class ClienteFormComponent implements OnInit, AfterViewInit {
 
   @ViewChildren(FormControlName, { read: ElementRef }) formInputElements: ElementRef[];
 
   public MASKS = MASKS;
 
-  displayMessage: { [key: string]: string } = {};
-  private genericValidator: GenericValidator;
-
   cadastroForm: FormGroup;
   client: Client;
-  formResult: string = '';
-
   success = false;
   errors: any[] = [];
   id!: number;
   errorMessage?: string;
 
-  constructor(private service: ClientsService, private fb: FormBuilder)
+  private genericValidator: GenericValidator;
+  displayMessage: DisplayMessage = {};
+  validationMessages: ValidationMessages =
+  {
+    name: {
+      required: 'O nome é requerido.',
+      minlength: 'O Nome precisa ter no mínimo 2 caracteres.',
+      maxlength: 'O Nome precisa ter no máximo 60 caracteres.'
+    },
+    cpf: {
+      required: 'Preencha o campo CPF.',
+      cpf: 'CPF inválido.'
+    }
+  };
+
+  constructor(
+    private service: ClientsService,
+    private fb: FormBuilder,
+    private route: ActivatedRoute
+    )
   {
     this.client = new Client();
 
@@ -42,10 +57,29 @@ export class ClientesFormReactiveComponent implements OnInit, AfterViewInit {
       registerDate: [{ value: '', disabled: true }]
     });
 
-    this.genericValidator = new GenericValidator();
+    this.genericValidator = new GenericValidator(this.validationMessages);
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+
+    this.id = this.route.snapshot.params.id;
+
+    if (this.id) {
+      this.service.getClientById(this.id).subscribe(
+        response => { this.cadastroForm.setValue({
+          id: response.id,
+          registerDate: response.registerDate,
+          name: response.name,
+          cpf: response.cpf
+        });
+
+        this.client = Object.assign({}, this.client, response);
+
+       }, () => this.client = new Client()
+      );
+    }
+
+  }
 
   ngAfterViewInit(): void {
     let controlBlurs: Observable<any>[] = this.formInputElements
@@ -56,22 +90,10 @@ export class ClientesFormReactiveComponent implements OnInit, AfterViewInit {
     });
   }
 
-  adicionarUsuario(): void {
-    if (this.cadastroForm.dirty && this.cadastroForm.valid) {
-      this.client = Object.assign({}, this.client, this.cadastroForm.value);
-      this.formResult = JSON.stringify(this.cadastroForm.value);
-      console.log('---form', this.cadastroForm.value);
-    }
-    else {
-      this.formResult = "Não submeteu!"
-    }
-  }
-
   onSubmit(): void {
     if (this.cadastroForm.dirty && this.cadastroForm.valid) {
       this.cadastroForm.value.cpf = this.cadastroForm.value.cpf.replace(/\.|-/gm,'');
       this.client = Object.assign({}, this.client, this.cadastroForm.value);
-      console.log(this.client);
 
       this.service.persist(this.client).subscribe(
         (response) => {
@@ -79,6 +101,8 @@ export class ClientesFormReactiveComponent implements OnInit, AfterViewInit {
           this.errors = [];
 
           this.client = Object.assign({}, this.client, response);
+          console.log(this.client);
+
           this.cadastroForm.get('id').setValue(response.id);
           this.cadastroForm.get('registerDate').setValue(response.registerDate);
         },

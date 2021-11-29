@@ -1,8 +1,9 @@
 export class ServicoPrestado {
+  
+  id: string;
+  description: string;
+  price: string;
+  date: string;
+  clientId: number;
 
-  description?: string;
-  price?: string;
-  date?: string;
-  clientId?: number;
-  // Client client;
 }

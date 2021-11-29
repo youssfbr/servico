@@ -3,8 +3,9 @@
   <li class="breadcrumb-item active">Novo</li>
 </ol>
 
-<div class="container">
-  <form #form="ngForm" (submit)="onSubmit()">
+<div class="container" >
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit(form)">
 
     <div class="alert alert-success" role="alert" *ngIf="success">
       <strong>Serviço Prestado</strong> salvo/atualizado com sucesso.
@@ -25,16 +26,17 @@
     <div class="row">
       <div class="col-md-12">
         <div class="form-group">
-          <label for="clientId">Cliente: </label>
-          <select name="clientId" id="clientId" class="form-control"
-            [ngModelOptions]="{standalone: true}"
-            [(ngModel)]="servico.clientId">
+          <label for="clientId">Cliente </label>
+          <select formControlName="clientId" id="clientId" class="form-control"
+          [ngClass]="{'is-invalid': displayMessage.clientId}"
+          >
             <option value="">Selecione ...</option>
             <option *ngFor="let client of clients"
                     [ngValue]="client.id">
               {{ client.name }}
             </option>
           </select>
+          <div class="invalid-feedback" >{{ displayMessage.clientId }}</div>
         </div>
       </div>
     </div>
@@ -43,9 +45,11 @@
       <div class="col-md-12">
         <div class="form-group">
           <label for="description">Descrição</label>
-          <input class="form-control"
-                  [(ngModel)]="servico.description" type="text"
-                  name="description" id="description" />
+          <input type="text" class="form-control "
+            formControlName="description" id="description" placeholder="Descrição é requerida"
+            [ngClass]="{'is-invalid': displayMessage.description}"
+          />
+          <div class="invalid-feedback" >{{ displayMessage.description }}</div>
         </div>
       </div>
     </div>
@@ -54,28 +58,35 @@
       <div class="col-md-6">
         <div class="form-group">
           <label for="date">Data</label>
-          <input class="form-control"
-                  [(ngModel)]="servico.date" type="text"
-                  name="date" id="date" placeholder="dd/mm/yyyy" />
+          <input type="text" class="form-control"
+            formControlName="date" id="date" placeholder="dd/mm/yyyy"
+            date [textMask]="{mask: maskDate}"
+            [ngClass]="{'is-invalid': displayMessage.date }"
+          />
+          <div class="invalid-feedback">{{ displayMessage.date }}</div>
         </div>
       </div>
       <div class="col-md-6">
         <div class="form-group">
           <label for="price">Valor do serviço</label>
-          <input class="form-control"
-                  [(ngModel)]="servico.price" type="text"
-                  name="price" id="price" />
+          <input type="text" class="form-control"
+            formControlName="price" id="price"
+            number [textMask]="{mask: MASKS.number.textMask}"
+            [ngClass]="{ 'is-invalid': displayMessage.price }"
+          />
+          <div class="invalid-feedback" >{{ displayMessage.price }}</div>
         </div>
       </div>
     </div>
 
     <div class="row mb-4 mt-2">
       <div class="col-md-3">
-        <button class="btn btn-primary" type="submit">
+        <button class="btn btn-primary" type="submit" [disabled]="!form.valid">
           <i class="fa fa-save mr-1"></i>
           Salvar</button>
       </div>
     </div>
 
   </form>
+
 </div>
