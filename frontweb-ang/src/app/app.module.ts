@@ -10,6 +10,8 @@ import { TemplateModule } from './template/template.module';
 import { ClienteModule } from './pages/cliente/cliente.module';
 import { ServicoPrestadoModule } from './pages/servico-prestado/servico-prestado.module';
 import { MarcaModule } from './pages/marca/marca.module';
+import { ProductModule } from './pages/product/product.module';
+import { SharedComponentsModule } from './shared/components/shared-components.module';
 
 import { ClientsService } from './shared/services/clients.service';
 import { ServicoPrestadoService } from './shared/services/servico-prestado.service';
@@ -26,8 +28,10 @@ import { ServicoPrestadoService } from './shared/services/servico-prestado.servi
     AppRoutingModule,
     TemplateModule,
     ClienteModule,
-    MarcaModule,
     ServicoPrestadoModule,
+    MarcaModule,
+    ProductModule,
+    SharedComponentsModule
   ],
   providers: [
     ClientsService,
