@@ -1,0 +1,22 @@
+<app-title >
+  <div class="title">Produtos</div>
+  <div class="subtitle">Lista de Produtos</div>
+</app-title>
+
+
+<product-count [products]="products"></product-count>
+
+<div class="container main-container">
+
+  <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+
+    <app-product-card-detail
+      *ngFor="let product of products;"
+      [product]="product"
+      (status)="ChangeStatus($event)"
+    >
+    </app-product-card-detail>
+
+  </div>
+
+</div>

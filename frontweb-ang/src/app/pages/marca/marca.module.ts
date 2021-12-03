@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MarcaRoutingModule } from './marca-routing.module';
 
 import { MarcaFormComponent } from './marca-form/marca-form.component';
+import { SharedComponentsModule } from 'src/app/shared/components/shared-components.module';
 
 
 @NgModule({
@@ -16,6 +17,7 @@ import { MarcaFormComponent } from './marca-form/marca-form.component';
     MarcaRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    SharedComponentsModule
   ],
   exports: [
     MarcaFormComponent

@@ -1,0 +1,42 @@
+<div class="col" style="padding-bottom: 30px;">
+  <div  class="card rounded-3 shadow-sm">
+    <div class="card-header "><!-- py-3 text-white bg-primary border-primary -->
+      <h4 class="card-title">{{ product.name | titlecase }}</h4>
+    </div>
+    <div class="card-body" >
+      <div style="align-content:center;">
+        <img src="/assets/{{ product.image }}" height="164px"  alt="produto imagem" />
+      </div>
+
+      <div *ngIf="product.isActive" class="card-body">
+        <h1 class="card-title pricing-card-title">{{ product.price | currency:'BRL':'symbol':'1.2-2':'pt' }}</h1><!-- <small class="text-muted fw-light">/mo</small> -->
+      </div>
+
+      <div [ngSwitch]="product.isActive">
+        <p *ngSwitchCase="true">Em estoque</p>
+        <p *ngSwitchCase="false">Fora de estoque</p>
+      </div>
+
+      <div *ngIf="!product.isActive" class="card-body">
+        <div>
+          <h4>Avise-me quando chegar</h4>
+        </div>
+      </div>
+
+      <button
+        type="button"
+        class="w-100 btn btn-lg btn-primary"
+        (click)="emitEvent()"
+        [ngClass]="product.isActive ? 'btn btn-success' : 'btn btn-danger' "
+        href="javascript:void(0)"
+
+        >
+
+          <span [ngClass]="product.isActive ? 'fa fa-toggle-on' : 'fa fa-toggle-off' " ></span>Contact us
+
+
+      </button>
+
+    </div>
+  </div>
+</div>

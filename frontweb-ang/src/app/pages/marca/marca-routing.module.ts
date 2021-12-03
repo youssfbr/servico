@@ -5,7 +5,7 @@ import { MarcaFormComponent } from './marca-form/marca-form.component';
 
 
 const routes: Routes = [
-  { path: 'marca-form', component: MarcaFormComponent },
+  { path: '', component: MarcaFormComponent },
 ];
 
 @NgModule({

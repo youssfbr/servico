@@ -69,7 +69,7 @@ export class ServicoPrestadoFormComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.clienteService.getClients().subscribe(
       (response) => (this.clients = response),
-      (error) => console.error(error)
+      (error) => console.log(error)
     );
   }
 
@@ -86,11 +86,9 @@ export class ServicoPrestadoFormComponent implements OnInit, AfterViewInit {
     if (form.dirty && form.valid)
     {
       this.servico = Object.assign({}, this.servico, form.value)
-      console.log(this.servico);
 
       this.servicoPrestadoService.persist(this.servico).subscribe(
         (response) => {
-          console.log(response);
           this.success = true;
           this.errors = [];
           this.servico = new ServicoPrestado();
@@ -98,12 +96,9 @@ export class ServicoPrestadoFormComponent implements OnInit, AfterViewInit {
         }
         ,
         (errorResponse) => {
-          console.error(errorResponse);
-
           this.successFalse();
           this.errors = errorResponse.error.fields;
           this.errorMessage = 'Ocorreu um erro ao salvar/atualizar o serviço prestado!'
-
         }
       );
     }
@@ -112,12 +107,5 @@ export class ServicoPrestadoFormComponent implements OnInit, AfterViewInit {
   successFalse(): void {
     this.success = false;
   }
-
-
-
-
-
-
-
-
+  
 }
