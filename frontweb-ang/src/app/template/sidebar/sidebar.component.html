@@ -3,14 +3,16 @@
       <div class="sb-sidenav-menu">
           <div class="nav">
               <div class="sb-sidenav-menu-heading">Sistema</div>
-                <a class="nav-link" [routerLink]="['/home']">
+                <a class="nav-link"
+                  routerLinkActive="active" [routerLink]="['/home']">
                   <div class="sb-nav-link-icon">
                     <i class="fas fa-tachometer-alt"></i>
                   </div>
                   Home
                 </a>
               <div class="sb-sidenav-menu-heading">Cadastros</div>
-              <a class="nav-link collapsed" [routerLink]="['/cliente-list']"
+              <a class="nav-link collapsed"
+                routerLinkActive="active" [routerLink]="['/cliente-list']"
                 data-toggle="collapse" data-target="#collapseLayouts"
                 aria-expanded="false" aria-controls="collapseLayouts"
               >
@@ -20,7 +22,8 @@
               </a>
 
 
-              <a class="nav-link collapsed" [routerLink]="['/marca-form']"
+              <a class="nav-link collapsed"
+                routerLinkActive="active" [routerLink]="['/marca-form']"
                 data-toggle="collapse" data-target="#collapseLayouts"
                 aria-expanded="false" aria-controls="collapseLayouts"
               >
@@ -30,12 +33,24 @@
               </a>
 
 
-                <a class="nav-link collapsed" [routerLink]="['/servico-prestado-form']"
+              <a class="nav-link collapsed"
+                routerLinkActive="active" [routerLink]="['/servico-prestado-form']"
                 data-toggle="collapse" data-target="#collapseLayouts"
                 aria-expanded="false" aria-controls="collapseLayouts"
               >
                 <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                 Serviços Prestados
+                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                </a>
+
+
+              <a class="nav-link collapsed"
+                routerLinkActive="active" [routerLink]="['/produtos']"
+                data-toggle="collapse" data-target="#collapseLayouts"
+                aria-expanded="false" aria-controls="collapseLayouts"
+              >
+                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                Produtos
                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                 </a>
           </div>
