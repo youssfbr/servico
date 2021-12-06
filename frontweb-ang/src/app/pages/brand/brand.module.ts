@@ -2,27 +2,30 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { MarcaRoutingModule } from './marca-routing.module';
+import { BrandRoutingModule } from './brand-routing.module';
 
-import { MarcaFormComponent } from './marca-form/marca-form.component';
+import { BrandFormComponent } from './brand-form/brand-form.component';
 import { SharedComponentsModule } from 'src/app/shared/components/shared-components.module';
+import { BrandListComponent } from './brand-list/brand-list.component';
 
 
 @NgModule({
   declarations: [
-    MarcaFormComponent
+    BrandListComponent,
+    BrandFormComponent
   ],
   imports: [
     CommonModule,
-    MarcaRoutingModule,
+    BrandRoutingModule,
     FormsModule,
     ReactiveFormsModule,
     SharedComponentsModule
   ],
   exports: [
-    MarcaFormComponent
+    BrandListComponent,
+    BrandFormComponent
   ]
 })
-export class MarcaModule { }
+export class BrandModule { }
 
 

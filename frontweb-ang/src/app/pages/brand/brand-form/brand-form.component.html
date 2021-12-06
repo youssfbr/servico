@@ -1,0 +1,57 @@
+<app-title >
+  <div class="title">Marcas</div>
+  <div class="subtitle">{{ brand.id? 'Atualizar' : 'Cadastro'}}</div>
+</app-title>
+
+<div class="container">
+
+  <form class=" g-3" [formGroup]="form" (ngSubmit)="onSubmit(form)">
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="alert alert-success" role="alert" *ngIf="success">
+          <strong>Marca</strong> salva/atualizado com sucesso.
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="successFalse()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="alert alert-danger" role="alert" *ngFor="let error of errors">
+          O campo <strong>{{ error.message }}</strong>
+        </div>
+        <div class="alert alert-danger" role="alert" *ngIf="!errors && errorMessage">
+          <strong>{{ errorMessage }}</strong>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close" >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6" *ngIf="brand.id" >
+        <div class="form-group" >
+          <label>Id</label>
+          <input type="text" class="form-control" formControlName="id" />
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="name" >Marca *</label>
+          <input type="text" class="form-control" id="name" formControlName="name" placeholder="Marca (requerida)"
+          [ngClass]="{ 'is-invalid': displayMessage.name }"
+          />
+          <div class="invalid-feedback" >{{ displayMessage.name }}</div>
+        </div>
+      </div>
+
+      <div class="col-12">
+        <button class="btn btn-success mb-4 mt-2" type="submit" [disabled]="!form.valid">
+          <i class="fa fa-save mr-2"></i>Salvar
+        </button>
+      </div>
+    </div>
+
+  </form>
+
+</div>
