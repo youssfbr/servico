@@ -2,7 +2,7 @@ package com.github.youssfbr.servicos.rest;
 
 import com.github.youssfbr.servicos.dto.BrandDTO;
 
-import com.github.youssfbr.servicos.services.IBrandService;
+import com.github.youssfbr.servicos.services.interfaces.IBrandService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

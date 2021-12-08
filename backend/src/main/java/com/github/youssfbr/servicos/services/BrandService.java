@@ -5,6 +5,7 @@ import com.github.youssfbr.servicos.model.entities.Brand;
 import com.github.youssfbr.servicos.model.repositories.IBrandRepository;
 import com.github.youssfbr.servicos.services.exceptions.DatabaseException;
 import com.github.youssfbr.servicos.services.exceptions.ResourceNotFoundException;
+import com.github.youssfbr.servicos.services.interfaces.IBrandService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
