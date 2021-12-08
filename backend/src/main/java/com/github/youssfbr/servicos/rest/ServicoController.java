@@ -1,7 +1,7 @@
 package com.github.youssfbr.servicos.rest;
 
 import com.github.youssfbr.servicos.dto.ServicoDTO;
-import com.github.youssfbr.servicos.services.IServicoService;
+import com.github.youssfbr.servicos.services.interfaces.IServicoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

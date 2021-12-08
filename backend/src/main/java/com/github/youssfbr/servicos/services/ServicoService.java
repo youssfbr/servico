@@ -7,6 +7,7 @@ import com.github.youssfbr.servicos.model.repositories.IClientRepository;
 import com.github.youssfbr.servicos.model.repositories.IServicoRepository;
 import com.github.youssfbr.servicos.services.exceptions.DatabaseException;
 import com.github.youssfbr.servicos.services.exceptions.ResourceNotFoundException;
+import com.github.youssfbr.servicos.services.interfaces.IServicoService;
 import com.github.youssfbr.servicos.utils.Converter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
