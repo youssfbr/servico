@@ -1,7 +1,7 @@
 package com.github.youssfbr.servicos.rest;
 
 import com.github.youssfbr.servicos.dto.CategoryDTO;
-import com.github.youssfbr.servicos.services.ICategoryService;
+import com.github.youssfbr.servicos.services.interfaces.ICategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

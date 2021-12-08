@@ -3,6 +3,7 @@ package com.github.youssfbr.servicos.services;
 import com.github.youssfbr.servicos.dto.CategoryDTO;
 import com.github.youssfbr.servicos.model.entities.Category;
 import com.github.youssfbr.servicos.model.repositories.ICategoryRepository;
+import com.github.youssfbr.servicos.services.interfaces.ICategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
